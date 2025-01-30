@@ -1,8 +1,26 @@
 const express = require('express');
+const mongoose  = require('mongoose')
 const { resolve } = require('path');
+const dotenv = require('dotenv')
+dotenv.config();
 
 const app = express();
 const port = 3010;
+
+const connectDB = async ()=>{
+  try {
+    const conn = await mongoose.connect (`${process.env.MOGO_URL}`)
+    console.log(`connected to the mongoose ${port}`)
+
+    
+  } catch (error) {
+    console.error(`mongoose faild to connect `,error )
+    process.exit(1)
+    
+  }
+}
+
+connectDB();
 
 app.use(express.static('static'));
 
